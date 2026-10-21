@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import path from 'node:path';
 
-test('explore, route and stop form a working navigation flow', async ({ page }) => {
+test('explore, route and stop form a working navigation flow', async ({ page, baseURL }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
@@ -34,7 +34,7 @@ test('explore, route and stop form a working navigation flow', async ({ page }) 
   await expect(page.getByText('¿Qué crees que esconde esa puerta?')).toBeVisible();
   await page.getByRole('button', { name: 'La experiencia', exact: true }).click();
   await page.getByRole('button', { name: 'Explorar', exact: true }).click();
-  await expect(page).toHaveURL('http://127.0.0.1:8081/');
+  await expect(page).toHaveURL(`${baseURL}/`);
   expect(errors).toEqual([]);
 });
 

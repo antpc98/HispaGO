@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import { colors } from '../design/tokens';
@@ -33,7 +34,9 @@ export function Icon({
       strokeWidth={1.6}
       strokeLinecap="round"
       strokeLinejoin="round"
-      accessible={false}
+      {...(Platform.OS === 'web'
+        ? { 'aria-hidden': true, focusable: false }
+        : { accessible: false })}
     >
       <Path d={paths[name]} />
       {name === 'pin' && <Circle cx={12} cy={10} r={2.5} />}

@@ -16,7 +16,7 @@ Actualizado: 21 de octubre de 2026. Entrega activa: **1 · Base y dirección vis
 ## Verificado
 
 Migraciones y PostgreSQL real, 8 pruebas Django, 4 pruebas de configuración local,
-6 pruebas Jest y 3 E2E web. Health/Admin mediante HTTP y recuperación tras detener
+6 pruebas Jest y 4 E2E web. Health/Admin mediante HTTP y recuperación tras detener
 la base. Tipos, lint, exportación Android y web. Resultados y alcance exacto:
 `docs/qa/test-results.md`.
 
@@ -24,6 +24,12 @@ Reinstalación desde locks y arranque Metro offline con manifiesto Android HTTP 
 también comprobados. El entorno cloud requiere caché Expo en una ruta escribible;
 el comando está en README. La descarga del depurador nativo nuevo queda sin
 comprobar y Expo utiliza su fallback.
+
+Corrección posterior: los iconos y la ilustración usan atributos ARIA en web y
+conservan `accessible={false}` en nativo. La prueba de regresión recorre las tres
+pantallas y comprueba la consola React en desarrollo. Cuatro E2E adicionales
+ejecutados sobre Metro con caché limpia; sin el aviso de atributo no booleano.
+CI incluye ahora ese runner de desarrollo, además de la exportación web.
 
 ## Pendiente para cerrar la comprobación completa
 

@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 
 /** Original geometric illustration: an imagined patio, not a verified route location. */
@@ -14,7 +14,9 @@ export function PatioArt({ compact = false }: { compact?: boolean }) {
         height="100%"
         viewBox="0 0 640 380"
         preserveAspectRatio="xMidYMid slice"
-        accessible={false}
+        {...(Platform.OS === 'web'
+          ? { 'aria-hidden': true, focusable: false }
+          : { accessible: false })}
       >
         <Defs>
           <LinearGradient id="sky" x1="0" y1="0" x2="0" y2="1">

@@ -165,6 +165,15 @@ npm run test:e2e
 El E2E arranca el servidor de la exportación web, recorre las pantallas y comprueba
 filtros y adaptación a varios anchos. **Un bundle Android no es un APK instalado.**
 
+Para comprobar también avisos de React exclusivos del desarrollo:
+
+```sh
+npm run test:e2e:dev
+```
+
+Este runner arranca Metro offline en el puerto 8084 con caché limpia y verifica
+las mismas pantallas, incluidos los SVG decorativos y su accesibilidad web.
+
 La comprobación local de versiones se puede ejecutar sin enviar configuración:
 
 ```sh

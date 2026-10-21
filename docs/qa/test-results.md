@@ -95,3 +95,43 @@ antes del piloto y del despliegue público.
 **Sin ejecutar:** Android físico, APK, TalkBack, GPS, audio real, pruebas de campo,
 instalación en el equipo de Cristina/Antonio y GitHub Actions remoto. No existen
 todavía las funciones de producto de entregas posteriores.
+
+## Corrección posterior · Atributo `accessible` en SVG web
+
+Antonio informó de un aviso React en su arranque local de desarrollo:
+`Received false for a non-boolean attribute accessible`. En `Icon` y `PatioArt`,
+la propiedad nativa se reenviaba a un elemento SVG del DOM.
+
+Se conservó `accessible={false}` para nativo y se usaron `aria-hidden` y
+`focusable={false}` para la decoración en web. React Native Web convierte la
+segunda propiedad en `tabIndex=-1`. El contenedor de la ilustración mantiene su
+rol de imagen y descripción. No se silenció LogBox ni se convirtió el valor
+nativo en una cadena para el DOM.
+
+Se añadió WEB-04, que fallaba antes de la corrección por ausencia de los atributos
+web, y un runner Metro de desarrollo para captar los avisos que la exportación
+de producción no muestra.
+
+Comprobaciones de la corrección:
+
+- TypeScript, lint y formato correctos.
+- Jest: 6 pruebas superadas.
+- E2E sobre exportación: 4 pruebas superadas.
+- E2E sobre Metro en desarrollo: 4 pruebas superadas, incluida consola React sin
+  el aviso de `accessible`; ninguna excepción JS en el caso de regresión.
+- Exportaciones web y Android regeneradas correctamente; sin afirmar ejecución
+  en Android físico.
+
+Durante la preparación del runner se detectó un fallo de caché de Metro
+(`Requiring unknown module`) con servidores simultáneos. Se detuvo el servidor
+de prueba anterior y se arrancó el runner con caché limpia y modo no interactivo;
+los cuatro casos pasaron. El runner usa el puerto 8084 y un solo worker.
+
+No se añadieron dependencias. La reinstalación npm y las pruebas de backend no
+se repitieron para este cambio de interfaz. La validación en Android físico y
+Expo Doctor online mantienen sus estados pendientes.
+
+Evidencia aportada por Antonio desde Windows: `npm ci` completó la instalación
+tras activar `NODE_USE_SYSTEM_CA=1`, y la demo se abrió en su navegador local.
+El aviso SVG procede de esa prueba; la verificación automatizada de la corrección
+se realizó en el entorno Linux, no en su equipo.

@@ -32,6 +32,7 @@ Para E2E, exportación web actual y navegador Chromium instalado.
 | WEB-01 | Playwright | Explorar → detalle → parada → ejemplo → volver | URLs correctas, controles responden, sin excepciones JS |
 | WEB-02 | Playwright | Filtrar, restablecer y buscar FIGARO | Estado vacío y recuperación |
 | WEB-03 | Playwright | Enlaces directos a tres pantallas a 320/412/1280 px | Contenido visible sin desbordamiento horizontal |
+| WEB-04 | Playwright, exportación y desarrollo | Abrir tres pantallas y observar SVG y consola React | Sin atributo DOM `accessible`; decoración oculta con ARIA y fuera de tabulación; ilustración conserva descripción; sin aviso de atributo no booleano |
 | OPS-01 | HTTP + Docker | Detener/arrancar la base conservando volumen | 503 durante fallo y 200 al recuperar |
 | OPS-02 | Herramientas | Check Django, migraciones pendientes, lint, tipos y formato | Sin errores |
 | BUILD-01 | Expo | Exportar Android y web | Bundles generados, sin afirmar APK instalado |
@@ -43,6 +44,9 @@ Para E2E, exportación web actual y navegador Chromium instalado.
 Usar los comandos del README en sus directorios respectivos. El runner móvil es
 Jest con preset `jest-expo`; `npm test` está configurado. Playwright inicia la
 exportación servida mediante `serve`, no un simulador Android.
+
+`npm run test:e2e:dev` ejecuta los casos web sobre Metro en modo desarrollo,
+con caché limpia en el puerto 8084. Detecta avisos que React omite en producción.
 
 No se incluyen todavía tests de publicación, catálogo real, progreso o XP porque
 esas funciones no existen en la entrega 1. Se añadirán con sus implementaciones.

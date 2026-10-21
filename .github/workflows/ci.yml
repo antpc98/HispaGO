@@ -76,6 +76,8 @@ jobs:
       - run: npm run export:web -- --max-workers 2
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+      - name: Check development warnings and navigation
+        run: npm run test:e2e:dev
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
