@@ -2,7 +2,7 @@
 
 Fecha: 21 de octubre de 2026.
 
-Estado: planificación inicial. Este documento no acredita funcionalidades implementadas ni pruebas ejecutadas.
+Estado: plan de referencia. El avance y las comprobaciones reales se registran en [STATE.md](STATE.md) y [el informe de QA](qa/test-results.md); este documento por sí solo no acredita funcionalidades ni pruebas ejecutadas.
 
 Fuente funcional: `HispaGo_Guia_Desarrollo_V1.md`, versión 1.0, facilitada por Antonio. Este plan organiza su ejecución; las decisiones funcionales siguen esa guía. Los ejemplos de comandos y prompts de la guía se aplicarán al hito correspondiente, después de comprobar las versiones y el entorno reales.
 

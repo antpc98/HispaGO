@@ -1,0 +1,86 @@
+name: HispaGo checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:17.11@sha256:a63c1ea3f6a3a5a1621f97d2aba3b30faecfab4224c1b0000cc85ced57bb1939
+        env:
+          POSTGRES_DB: hispago
+          POSTGRES_USER: hispago
+          POSTGRES_PASSWORD: ci-test-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U hispago -d hispago"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DJANGO_DEBUG: 'True'
+      DJANGO_SECRET_KEY: ci-only-key-not-for-deployment-6bd87c0b3c5a4fe59a11e047935f1690
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1
+      DATABASE_URL: postgresql://hispago:ci-test-only@127.0.0.1:5432/hispago
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: backend/requirements-dev.txt
+      - run: python -m pip install --require-hashes -r requirements-dev.txt
+      - run: ruff check . ../scripts && ruff format --check . ../scripts
+      - run: python -m unittest discover -s ../scripts -p 'test_*.py' -v
+      - run: python manage.py check
+      - run: python manage.py makemigrations --check --dry-run
+      - run: python manage.py migrate --noinput
+      - run: python manage.py collectstatic --noinput --verbosity 0
+      - run: python manage.py test --verbosity 2
+
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: mobile
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck && npm run lint && npm run format:check
+      - run: npm test -- --silent
+      - name: Validate dependencies with the SDK metadata (no external project upload)
+        run: EXPO_OFFLINE=1 npx expo install --check
+      - run: npm run export:android -- --max-workers 2
+      - run: npm run export:web -- --max-workers 2
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: mobile-test-report
+          path: |
+            mobile/playwright-report/
+            mobile/test-results/
+          retention-days: 7

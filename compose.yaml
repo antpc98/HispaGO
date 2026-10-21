@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:17.11@sha256:a63c1ea3f6a3a5a1621f97d2aba3b30faecfab4224c1b0000cc85ced57bb1939
+    environment:
+      POSTGRES_DB: hispago
+      POSTGRES_USER: hispago
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Ejecuta scripts/bootstrap_env.py primero}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - hispago_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hispago -d hispago"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  hispago_pgdata:

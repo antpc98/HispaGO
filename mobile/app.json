@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "HispaGo",
+    "slug": "hispago",
+    "scheme": "hispago",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F8F3EA",
+    "android": { "package": "com.hispago.app" },
+    "web": { "bundler": "metro", "output": "static", "name": "HispaGo · Demo visual" },
+    "plugins": [
+      "expo-router",
+      ["expo-splash-screen", { "backgroundColor": "#F8F3EA" }],
+      "expo-font"
+    ],
+    "experiments": { "typedRoutes": true }
+  }
+}
