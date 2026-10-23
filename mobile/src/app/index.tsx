@@ -1,1 +1,1 @@
-export { ExploreScreen as default } from '../screens/ExploreScreen';
+export { HomeScreen as default } from '../screens/HomeScreen';

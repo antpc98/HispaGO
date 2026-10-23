@@ -18,8 +18,19 @@ export const demoRoute = {
   },
 } as const;
 
-export type DemoCategory = 'Todas' | 'Ópera' | 'Historia' | 'Arte';
-export const categories: readonly DemoCategory[] = ['Todas', 'Ópera', 'Historia', 'Arte'];
+export type DemoCategory = 'Todas' | 'Ópera' | 'Historia' | 'Arte' | 'Tradiciones' | 'Personajes';
+export const categories: readonly DemoCategory[] = [
+  'Todas',
+  'Ópera',
+  'Historia',
+  'Arte',
+  'Tradiciones',
+  'Personajes',
+];
+
+export function readDemoCategory(value: string | string[] | undefined): DemoCategory {
+  return categories.find((category) => category === value) ?? 'Todas';
+}
 
 export function matchesDemoRoute(search: string, category: DemoCategory): boolean {
   const normalize = (value: string) =>

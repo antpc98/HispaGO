@@ -8,7 +8,7 @@ export default function RootHtml({ children }: PropsWithChildren) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#F8F3EA" />
+        <meta name="theme-color" content="#F7F3E9" />
         <meta
           name="description"
           content="HispaGo: demo visual de experiencias culturales por Sevilla. Entrega 1, contenido de ejemplo."

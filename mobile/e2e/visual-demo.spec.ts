@@ -1,45 +1,59 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import path from 'node:path';
+
+async function captureDesign(page: Page, name: string, heading: RegExp) {
+  if (process.env.CAPTURE_DESIGN !== '1') return;
+  await expect(page.getByRole('heading', { name: heading }).first()).toBeInViewport();
+  await page.evaluate(() => document.fonts.ready);
+  await expect
+    .poll(() =>
+      page
+        .locator('img')
+        .evaluateAll((images) =>
+          images.every(
+            (image) =>
+              image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+          ),
+        ),
+    )
+    .toBe(true);
+  await page.screenshot({
+    path: path.resolve(`../docs/design/screenshots/${name}.png`),
+    fullPage: true,
+    animations: 'disabled',
+  });
+}
 
 test('explore, route and stop form a working navigation flow', async ({ page, baseURL }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
   await expect(page.getByText('DEMO VISUAL · ENTREGA 1')).toBeVisible();
-  if (process.env.CAPTURE_DESIGN === '1') {
-    await page.screenshot({
-      path: path.resolve('../docs/design/screenshots/explorar.png'),
-      fullPage: true,
-    });
-  }
+  await captureDesign(page, 'inicio', /¿Qué Sevilla/);
+  await page.getByRole('button', { name: 'Ver rutas culturales' }).click();
+  await expect(page).toHaveURL(`${baseURL}/routes`);
+  await expect(page.getByRole('heading', { name: 'Rutas culturales' })).toBeInViewport();
+  await captureDesign(page, 'explorar', /Rutas culturales/);
   await page.getByRole('button', { name: 'Descubrir la propuesta' }).click();
   await expect(page).toHaveURL(/\/routes\/figaro-demo/);
   await expect(page.getByText('El recorrido', { exact: true })).toBeVisible();
-  if (process.env.CAPTURE_DESIGN === '1') {
-    await page.screenshot({
-      path: path.resolve('../docs/design/screenshots/detalle.png'),
-      fullPage: true,
-    });
-  }
+  await captureDesign(page, 'detalle', /Las bodas de Fígaro/);
   await page.getByRole('button', { name: 'Explorar una parada demo' }).click();
   await expect(page).toHaveURL(/\/stops\/patio-demo/);
   await expect(page.getByRole('button', { name: 'Audio pendiente' })).toBeDisabled();
-  if (process.env.CAPTURE_DESIGN === '1') {
-    await page.screenshot({
-      path: path.resolve('../docs/design/screenshots/parada.png'),
-      fullPage: true,
-    });
-  }
+  await captureDesign(page, 'parada', /Al otro lado del patio/);
   await page.getByRole('button', { name: 'Ver ejemplo de dinámica' }).click();
   await expect(page.getByText('¿Qué crees que esconde esa puerta?')).toBeVisible();
   await page.getByRole('button', { name: 'La experiencia', exact: true }).click();
-  await page.getByRole('button', { name: 'Explorar', exact: true }).click();
+  await page.getByRole('button', { name: 'Volver a Rutas', exact: true }).click();
+  await expect(page).toHaveURL(`${baseURL}/routes`);
+  await page.getByRole('tab', { name: 'Inicio', exact: true }).click();
   await expect(page).toHaveURL(`${baseURL}/`);
   expect(errors).toEqual([]);
 });
 
 test('filtering and searching recover from an empty state', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/routes');
   await page.getByRole('button', { name: 'Historia', exact: true }).click();
   await expect(page.getByText('Aún no hay historias aquí')).toBeVisible();
   await page.getByRole('button', { name: 'Restablecer filtros' }).click();
@@ -50,7 +64,7 @@ test('filtering and searching recover from an empty state', async ({ page }) => 
 test('direct links render and layouts fit narrow and wide screens', async ({ page }) => {
   for (const width of [320, 412, 1280]) {
     await page.setViewportSize({ width, height: 915 });
-    for (const path of ['/', '/routes/figaro-demo', '/stops/patio-demo']) {
+    for (const path of ['/', '/routes', '/routes/figaro-demo', '/stops/patio-demo']) {
       await page.goto(path);
       await expect(page.getByText('DEMO VISUAL · ENTREGA 1')).toBeVisible();
       await expect(page.getByRole('heading').first()).toBeVisible();

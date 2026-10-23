@@ -135,3 +135,55 @@ Evidencia aportada por Antonio desde Windows: `npm ci` completó la instalación
 tras activar `NODE_USE_SYSTEM_CA=1`, y la demo se abrió en su navegador local.
 El aviso SVG procede de esa prueba; la verificación automatizada de la corrección
 se realizó en el entorno Linux, no en su equipo.
+
+## Revisión visual basada en las referencias de Antonio
+
+Se incorporaron Inicio, catálogo separado, portadas artísticas y navegación
+inferior. Se conserva la parada demo. El mapa, datos turísticos, audio y progreso
+siguen pendientes de sus fases; no se añadió una API ni persistencia.
+
+### Verificaciones
+
+- TypeScript, lint y formato sin errores tras regenerar los tipos de Expo Router
+  al arrancar Metro con la nueva ruta `/routes`.
+- Jest: 3 suites y 6 pruebas superadas.
+- Playwright sobre exportación: 5 casos superados.
+- Playwright sobre Metro en desarrollo: 5 casos superados.
+- Cobertura funcional: Inicio → Rutas → detalle → parada, búsqueda, filtros,
+  colecciones de Inicio, barra inferior y estado seleccionado accesible.
+- Cuatro pantallas comprobadas a 320, 412 y 1280 px, sin desbordamiento horizontal.
+- Exportaciones web (6 rutas estáticas) y Android generadas; las dos imágenes
+  locales están incluidas en el bundle Android.
+- Capturas revisadas de Inicio, Rutas, detalle y parada. Se espera a fuentes e
+  imágenes antes de capturar; no son capturas de un Android físico.
+- Sin dependencias nuevas ni cambios en lockfiles o backend. No se repitieron
+  las pruebas de PostgreSQL para este cambio de interfaz.
+
+El E2E detectó que `accessibilityState.selected` no exponía por sí solo el estado
+en esta versión web. Los filtros declaran `aria-pressed` y las pestañas
+`aria-selected` en web, conservando el estado nativo. También se corrigió el
+ajuste de las imágenes: dimensiones porcentuales explícitas evitan que el tamaño
+intrínseco del PNG produzca un recorte excesivo. La regresión comprueba imágenes
+cargadas dentro de su contenedor, descripciones y ausencia del aviso SVG.
+
+### Contraste de la revisión
+
+Luminancia relativa sRGB de los colores sólidos:
+
+| Combinación | Relación |
+|---|---|
+| Azul oscuro sobre cal | 12.92:1 |
+| Texto secundario sobre cal | 5.20:1 |
+| Terracota sobre cal | 5.58:1 |
+| Texto claro sobre botón terracota | 6.04:1 |
+| Texto cálido sobre azul de categoría | 8.82:1 |
+| Texto cálido sobre oliva de categoría | 4.95:1 |
+| Azul oscuro sobre arena | 10.63:1 |
+
+Se oscureció el oliva de las categorías para mejorar el contraste del texto
+pequeño y se reforzó el velo de las portadas. Estas medidas no sustituyen una
+auditoría completa de accesibilidad o pruebas nativas con texto ampliado.
+
+Expo Doctor online, Android físico, aprobación editorial e infraestructura
+del piloto conservan sus estados pendientes. Esta revisión no cierra las fases
+de contenido, mapa, audio o entrega del APK.

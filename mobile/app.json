@@ -6,12 +6,12 @@
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#F8F3EA",
+    "backgroundColor": "#F7F3E9",
     "android": { "package": "com.hispago.app" },
     "web": { "bundler": "metro", "output": "static", "name": "HispaGo · Demo visual" },
     "plugins": [
       "expo-router",
-      ["expo-splash-screen", { "backgroundColor": "#F8F3EA" }],
+      ["expo-splash-screen", { "backgroundColor": "#F7F3E9" }],
       "expo-font"
     ],
     "experiments": { "typedRoutes": true }

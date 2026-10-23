@@ -29,10 +29,11 @@ Para E2E, exportación web actual y navegador Chromium instalado.
 | UI-04 | Jest | Seleccionar Historia y restablecer filtros | Estado vacío y recuperación de Fígaro |
 | UI-05 | Jest | Escribir búsqueda inexistente | Estado vacío y aviso de demostración visible |
 | UI-06 | Jest | Abrir parada y desplegar/ocultar ejemplo | Audio deshabilitado; ejemplo visible y después oculto |
-| WEB-01 | Playwright | Explorar → detalle → parada → ejemplo → volver | URLs correctas, controles responden, sin excepciones JS |
+| WEB-01 | Playwright | Inicio → Rutas → detalle → parada → ejemplo → volver | URLs correctas, controles responden, sin excepciones JS |
 | WEB-02 | Playwright | Filtrar, restablecer y buscar FIGARO | Estado vacío y recuperación |
-| WEB-03 | Playwright | Enlaces directos a tres pantallas a 320/412/1280 px | Contenido visible sin desbordamiento horizontal |
-| WEB-04 | Playwright, exportación y desarrollo | Abrir tres pantallas y observar SVG y consola React | Sin atributo DOM `accessible`; decoración oculta con ARIA y fuera de tabulación; ilustración conserva descripción; sin aviso de atributo no booleano |
+| WEB-03 | Playwright | Enlaces directos a cuatro pantallas a 320/412/1280 px | Contenido visible sin desbordamiento horizontal |
+| WEB-04 | Playwright, exportación y desarrollo | Abrir cuatro pantallas y observar imágenes, SVG y consola React | Portadas cargadas y ajustadas al contenedor; sin atributo DOM `accessible`; decoración oculta con ARIA y fuera de tabulación; ilustración conserva descripción; sin aviso de atributo no booleano |
+| WEB-05 | Playwright, exportación y desarrollo | Abrir Arte y cultura / Historia desde Inicio y navegar con la barra inferior | Categoría correcta y estado vacío honesto; selección accesible; detalle indica mapa pendiente y no ofrece inicio de ruta real |
 | OPS-01 | HTTP + Docker | Detener/arrancar la base conservando volumen | 503 durante fallo y 200 al recuperar |
 | OPS-02 | Herramientas | Check Django, migraciones pendientes, lint, tipos y formato | Sin errores |
 | BUILD-01 | Expo | Exportar Android y web | Bundles generados, sin afirmar APK instalado |

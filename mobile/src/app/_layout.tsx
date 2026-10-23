@@ -6,7 +6,7 @@ import { DMSans_700Bold } from '@expo-google-fonts/dm-sans/700Bold';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '../design/tokens';
 
@@ -34,7 +34,11 @@ export default function RootLayout() {
     <>
       <StatusBar style="dark" />
       <Stack
-        screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.paper } }}
+        screenOptions={{
+          headerShown: false,
+          animation: Platform.OS === 'web' ? 'none' : 'default',
+          contentStyle: { backgroundColor: colors.paper },
+        }}
       />
     </>
   );

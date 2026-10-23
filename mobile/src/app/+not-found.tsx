@@ -8,7 +8,7 @@ export default function NotFoundScreen() {
     <Screen>
       <Heading>Por aquí aún no hay camino.</Heading>
       <Copy>Esta pantalla no forma parte de la demostración.</Copy>
-      <Button label="Volver a Explorar" onPress={() => router.replace('/')} />
+      <Button label="Volver a Inicio" onPress={() => router.replace('/')} />
     </Screen>
   );
 }

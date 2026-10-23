@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Icon } from '../components/Icon';
-import { PatioArt } from '../components/PatioArt';
+import { Artwork } from '../components/Artwork';
 import { Button, Copy, Eyebrow, Heading, layout, Notice, Screen } from '../components/ui';
 import { demoRoute } from '../demo/content';
 import { colors, fonts } from '../design/tokens';
@@ -13,7 +13,7 @@ export function StopScreen() {
     <Screen backLabel="La experiencia" backHref="/routes/figaro-demo">
       <Eyebrow>UNA PARADA · VISTA DE DEMOSTRACIÓN</Eyebrow>
       <Heading>{demoRoute.stop.title}</Heading>
-      <PatioArt compact />
+      <Artwork kind="seville" style={{ height: 190, borderRadius: 12 }} />
       <View style={styles.player}>
         <View style={layout.row}>
           <Icon name="headphones" color={colors.sage} />

@@ -8,15 +8,18 @@ Actualizado: 21 de octubre de 2026. Entrega activa: **1 · Base y dirección vis
 - Django 5.2 LTS, PostgreSQL 17 y configuración local generada sin secretos en Git.
 - Salud con consulta real a base y Admin base con marca, sesión y CSRF.
 - Expo SDK 58, TypeScript y única raíz de navegación `src/app/`.
-- Explorar, detalle y parada demo con identidad sevillana, ilustraciones originales,
-  búsqueda/categorías locales y ejemplo desplegable.
+- Inicio, Rutas, detalle y parada demo con la revisión visual basada en las
+  referencias de Antonio: portadas ilustradas, categorías y navegación inferior.
+- Dos ilustraciones generadas para la demo, empaquetadas localmente y con
+  procedencia/checksum documentados. No son fotografías ni fuentes históricas.
+- Búsqueda/categorías locales y ejemplo desplegable de dinámica.
 - Dependencias fijadas, CI, tests y documentación de arranque, arquitectura,
   decisiones, versiones, recursos y QA.
 
 ## Verificado
 
 Migraciones y PostgreSQL real, 8 pruebas Django, 4 pruebas de configuración local,
-6 pruebas Jest y 4 E2E web. Health/Admin mediante HTTP y recuperación tras detener
+6 pruebas Jest y 5 E2E web. Health/Admin mediante HTTP y recuperación tras detener
 la base. Tipos, lint, exportación Android y web. Resultados y alcance exacto:
 `docs/qa/test-results.md`.
 
@@ -30,6 +33,12 @@ conservan `accessible={false}` en nativo. La prueba de regresión recorre las tr
 pantallas y comprueba la consola React en desarrollo. Cuatro E2E adicionales
 ejecutados sobre Metro con caché limpia; sin el aviso de atributo no booleano.
 CI incluye ahora ese runner de desarrollo, además de la exportación web.
+
+Revisión visual posterior: los cinco casos web se han ejecutado en exportación y
+en desarrollo, incluyendo colecciones de Inicio, categorías, selección accesible
+y navegación inferior. La nueva ruta `/routes` separa catálogo y bienvenida.
+Las portadas y los SVG conservan su accesibilidad y los marcadores de demo.
+Las capturas están en `docs/design/screenshots/`.
 
 ## Pendiente para cerrar la comprobación completa
 
@@ -45,6 +54,11 @@ CI incluye ahora ese runner de desarrollo, además de la exportación web.
 La app no consume la API, no guarda progreso, no solicita GPS ni reproduce audio.
 Las pantallas y el relato son demostración identificada. No hay ruta real publicada
 ni datos turísticos inventados. El Admin todavía no edita contenidos culturales.
+
+El espacio del mapa es decorativo, está rotulado como pendiente y no contiene
+coordenadas, marcadores ni navegación real. Las duraciones y distancias siguen
+por validar. La barra inferior enlaza pantallas existentes: no añade Favoritos,
+Perfil, cuentas ni almacenamiento. La fase activa sigue siendo la entrega 1.
 
 No hay hosting, EAS, bucket, credenciales de mapas ni publicación comercial.
 

@@ -4,7 +4,7 @@
 
 ```text
 App Expo (Android / web)
-  └─ Demo local tipada → componentes → tres pantallas
+  └─ Demo local tipada → componentes → Inicio, Rutas, detalle y parada
 
 Backend Django
   ├─ GET /health/ → SELECT 1 → PostgreSQL 17
@@ -35,6 +35,7 @@ cloud o estrategia operativa de copias: corresponden a la entrega 6.
 - `src/app/`: única raíz de Expo Router y documentos web.
 - `src/screens/`: presentación y estado transitorio de filtros/ejemplo.
 - `src/components/`: interfaz reutilizable e ilustración original.
+- `assets/images/`: dos ilustraciones generadas para la demo, empaquetadas localmente.
 - `src/design/`: tokens de color, tipografía y espaciado.
 - `src/demo/`: contenido sintético local; no publicable.
 - `e2e/`: recorridos reales en navegador sobre la exportación web.
@@ -42,6 +43,16 @@ cloud o estrategia operativa de copias: corresponden a la entrega 6.
 Sin estado persistente, red de catálogo, audio ni permisos nativos en esta entrega.
 No se solicitan ubicación ni datos personales. Las fuentes se empaquetan como
 archivos locales; no se descargan desde Google al abrir una pantalla.
+
+Navegación: `/` es Inicio y `/routes` es el catálogo local. Las colecciones de
+Inicio abren el catálogo con una categoría; Arte y cultura muestra la propuesta
+de Ópera disponible. Las categorías sin contenido muestran un estado vacío.
+La barra inferior enlaza Inicio, Rutas y La propuesta. No añade cuentas,
+favoritos ni persistencia. Los cambios de categoría de entrada reinician la
+vista mediante una clave React, sin sincronizaciones de estado en efectos.
+
+`MapPreview` es un bloque decorativo rotulado, sin coordenadas, marcadores ni
+indicaciones de paseo; la implementación del mapa sigue en la entrega 4.
 
 ## Evolución prevista
 

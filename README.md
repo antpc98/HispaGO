@@ -1,7 +1,9 @@
 # HispaGo
 
 Experiencias culturales por Sevilla. Base de la **entrega 1**: Django/PostgreSQL y
-una demo visual Android/web con Explorar, detalle y parada.
+una demo visual Android/web con Inicio, Rutas, detalle y parada. La revisión visual
+adopta las referencias aportadas: portadas ilustradas, marfil, azul oscuro,
+terracota y navegación inferior.
 
 La demo contiene ficción identificada y datos locales de presentación. Todavía no
 consulta un catálogo, reproduce audio, solicita GPS ni guarda progreso. La
