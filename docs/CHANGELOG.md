@@ -9,7 +9,10 @@
 - Fígaro conserva identidad, textos, imágenes y acceso directo como borrador separado de la prioridad piloto.
 - Roadmap único actualizado, procedencia y dependencias editoriales registradas, pruebas ampliadas y evidencias en QA/diseño.
 
-Sin despliegue, push, APK ni funciones de entregas posteriores implícitos. Los resultados de pruebas se acreditan solo en [QA](qa/test-results.md).
+Subido por petición de Antonio a `feat/delivery-1-foundation`, mediante integración
+fast-forward del commit `4601e97`; referencia remota comprobada. `main` se conserva
+sin cambios. No implica despliegue de servidor, APK ni funciones de entregas
+posteriores. Los resultados de pruebas se acreditan solo en [QA](qa/test-results.md).
 
 ### Archivos de este incremento
 

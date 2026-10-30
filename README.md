@@ -27,18 +27,20 @@ y el plan vigente. [Cambios](docs/CHANGELOG.md).
   base. Si no hay compatibilidad, hará falta una development build en una entrega
   posterior. La comprobación web no sustituye una prueba Android.
 
-Clonar la base remota conocida y situarse en la raíz (el incremento de revisión
-se aplica aparte hasta su integración):
+Clonar la rama de la demo y situarse en la raíz:
 
 ```sh
 git clone --branch feat/delivery-1-foundation https://github.com/antpc98/HispaGO.git
 cd HispaGO
 ```
 
-Comprueba `git status --short --branch` antes de trabajar: `main` puede no contener
-la entrega en revisión. La referencia de partida es `feat/delivery-1-foundation`;
-este incremento está preparado en `feat/delivery-1-plaza-de-espana` para revisión,
-sin implicar que se haya subido o integrado en remoto.
+Comprueba `git status --short --branch` antes de trabajar: `main` no contiene esta
+entrega. La revisión de Plaza de España está integrada y subida a
+`feat/delivery-1-foundation` desde el commit `4601e97`; se desarrolló en
+`feat/delivery-1-plaza-de-espana`. Esto es una subida de código a GitHub, no un
+despliegue de servidor ni un APK. Si ya tienes la demo clonada, detén Expo y usa
+`git pull --ff-only` desde la carpeta del proyecto, con cambios locales revisados,
+antes de arrancar `npm.cmd run web -- --clear` en `mobile`.
 
 ## Configuración local
 

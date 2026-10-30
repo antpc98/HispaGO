@@ -197,8 +197,13 @@ de contenido, mapa, audio o entrega del APK.
 
 Rama de revisión: `feat/delivery-1-plaza-de-espana`. Base inspeccionada:
 `bd356c9b58e02799111b1096e91d746c46f8a5ae` de `feat/delivery-1-foundation`, limpia
-y coincidente con su remoto al iniciar. Resultados del árbol de trabajo preparado
-para revisión; sin commit/push/PR/despliegue implícitos.
+y coincidente con su remoto al iniciar. Resultados del árbol de trabajo recogido
+después en el commit de implementación `4601e970d0403c7153a59f94e23dbcb0e983d9d2`.
+Por petición posterior de Antonio, integrado por fast-forward y subido a
+`feat/delivery-1-foundation`; push y hash remoto comprobados mediante Git.
+Sin cambios en `main`, PR, despliegue de servidor ni APK. La operación de subida
+solo actualiza documentación y Git: no se han repetido las pruebas de producto
+ni se atribuyen nuevas ejecuciones a la publicación del código.
 
 Entorno: Linux, Node 24.19.0, dependencias existentes sin cambios, Playwright 1.64.1,
 Chromium del sistema 154.0.8037.57. Expo SDK 58. Pruebas web con emulación de Pixel 7

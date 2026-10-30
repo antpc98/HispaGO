@@ -1,7 +1,12 @@
 # Estado de HispaGo
 
 Actualizado: 30 de octubre de 2026. Entrega activa: **1 · Base técnica y pulido del piloto**.
-Base inspeccionada: `bd356c9` de `feat/delivery-1-foundation`, limpia y coincidente con el remoto al iniciar. Incremento preparado en `feat/delivery-1-plaza-de-espana`, sin modificar la rama de referencia ni borrar datos.
+Base inspeccionada: `bd356c9` de `feat/delivery-1-foundation`, limpia y coincidente
+con el remoto al iniciar. Incremento desarrollado en `feat/delivery-1-plaza-de-espana`
+y, por petición posterior de Antonio, integrado por fast-forward y subido a
+`feat/delivery-1-foundation`: commit de implementación `4601e970d0403c7153a59f94e23dbcb0e983d9d2`.
+Push y coincidencia de la referencia remota comprobados mediante Git. Sin cambios
+en `main`, reescritura de historial, borrado de datos, despliegue de servidor ni APK.
 
 ## Decisión vigente
 
