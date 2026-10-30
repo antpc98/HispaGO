@@ -21,6 +21,12 @@ playwright-report/
 credentials.json
 *.apk
 *.aab
+# Private editorial recordings: references and reviewed text only in Git.
+*.aac
+*.m4a
+*.wav
+*.mp3
+editorial-private/
 .DS_Store
 .idea/
 .vscode/

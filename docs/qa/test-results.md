@@ -1,5 +1,10 @@
 # Resultados de verificación · Entrega 1
 
+El estado vigente y las ejecuciones de la revisión **Plaza de España** se registran
+al final de este archivo. Las secciones anteriores a esa revisión son históricas:
+sus pantallas y conteos no describen la prioridad actual. No se suman rondas de
+regresión como si fueran funcionalidades nuevas.
+
 Fecha: 21 de octubre de 2026, Europe/Madrid.
 Rama: `feat/delivery-1-foundation`. Base: `c4b449bd973bce1e02ec1aed896dd2a316f3b60c`.
 Los resultados corresponden al árbol de trabajo de esta entrega; el commit final
@@ -187,3 +192,107 @@ auditoría completa de accesibilidad o pruebas nativas con texto ampliado.
 Expo Doctor online, Android físico, aprobación editorial e infraestructura
 del piloto conservan sus estados pendientes. Esta revisión no cierra las fases
 de contenido, mapa, audio o entrega del APK.
+
+## Revisión vigente · Plaza de España · 30 de octubre de 2026
+
+Rama de revisión: `feat/delivery-1-plaza-de-espana`. Base inspeccionada:
+`bd356c9b58e02799111b1096e91d746c46f8a5ae` de `feat/delivery-1-foundation`, limpia
+y coincidente con su remoto al iniciar. Resultados del árbol de trabajo preparado
+para revisión; sin commit/push/PR/despliegue implícitos.
+
+Entorno: Linux, Node 24.19.0, dependencias existentes sin cambios, Playwright 1.64.1,
+Chromium del sistema 154.0.8037.57. Expo SDK 58. Pruebas web con emulación de Pixel 7
+y viewports CSS ajustados, no Android/iPhone físicos.
+
+### Ejecuciones del incremento
+
+| Comando / comprobación | Resultado acreditado |
+|---|---|
+| `npm run typecheck` | Superada sobre código y tests finales |
+| `npm run lint` | Superada; en cloud con `EXPO_NO_TELEMETRY=1` y caché Expo escribible |
+| `npm run format:check` | Superada |
+| `npm test` | 3 suites, **9 pruebas superadas**, 0 omitidas |
+| `npm run export:web -- --max-workers 2` | Superada: **8 rutas estáticas**, incluidas Plaza, fuente editorial y borrador Fígaro |
+| `npm run export:android -- --max-workers 2` | Superada sobre la UI final: bundle Hermes y recursos locales; **no APK** |
+| `CAPTURE_DESIGN=1 npm run test:e2e` | **12 casos superados**, 0 omitidos, sobre exportación final |
+| `npm run test:e2e:dev` | **12 casos superados**, 0 omitidos, con encabezados al 200 % en los cuatro anchos; no se acredita la ronda anterior con colisión de trazas |
+| `EXPO_OFFLINE=1 npx expo install --check` | Superada con advertencia explícita del CLI: usa metadatos locales, no sustituye Doctor online |
+| `git diff --check` | Superada |
+| Enlaces Markdown e inventario visual | 16 MD comprobados (guía original excluida), sin enlaces locales rotos; 32 capturas presentes |
+| Búsqueda del nombre descartado en código/docs | Sin coincidencias; no se ha usado en la nueva configuración |
+| Integridad guía original | SHA-256 conservado: `15dff7d86dd13815c6fa8ae3cb78d58997c68e5418faf7bbe4c0b0540f8ec3e8` |
+| Backend / locks | Diff sin cambios; no se han vuelto a ejecutar PostgreSQL/Django ni reinstalado dependencias para esta revisión de interfaz |
+| Audio de Ana | **Bloqueado**: AAC y referencia de descarga inaccesibles; sin escucha, transcripción, extracción de tono o revisión factual |
+
+Los casos WEB-01–09 del plan se distribuyen en 12 tests ejecutables: cuatro casos
+normales por ancho, un caso de ampliación que recorre los cuatro anchos y los
+flujos de navegación, búsqueda, explicación, foco, scroll, recursos y borrador.
+No se suman repeticiones parciales a estos conteos.
+
+### Cobertura y evidencias
+
+- Inicio, Rutas, detalle y estado editorial a **320, 390, 430 y 768 px**.
+- Todo el texto ampliado al **200 %**, incluidos encabezados, en esos cuatro
+  anchos; la prueba comprueba que el tamaño calculado del encabezado se duplica.
+- Sin desbordamiento horizontal ni texto/control recortado; controles ≥44 px,
+  CTA principal de Inicio visible sin scroll en condiciones normales (alto 844 px).
+- Barra inferior completamente visible y último contenido alcanzable por scroll,
+  sin quedar tapado en condiciones normales; ampliación mantiene acceso por scroll.
+- Título completo y nombre accesible, imágenes locales cargadas dentro del marco,
+  sin Giralda/personajes de Fígaro en Plaza; SVG decorativos fuera de tabulación.
+- Búsqueda sin acentos, vacío/limpieza, disponibilidad real sin narración,
+  URL recargable, filtros inválidos, retorno a catálogo con búsqueda y scroll,
+  foco y activación por teclado. El acceso directo conserva destinos padre.
+- Fígaro/patio siguen navegables por sus URLs propias y su ficción no aparece en
+  la primera parada del piloto. La ausencia de audio no se oculta con un reproductor.
+
+**32 capturas** en `docs/design/screenshots/plaza-de-espana/`, a escala CSS,
+esperando hidratación, fuentes y carga de imágenes. Representan el viewport de
+la app con scroll interior, no un recorrido turístico completo. Se han inspeccionado
+visualmente ejemplos de Inicio, catálogo, detalle y estado editorial, incluidos
+título y texto ampliado. [Índice de diseño](../design/README.md).
+
+### Fallos encontrados y correcciones
+
+- Tipos de rutas generados anteriores a las nuevas entradas: regenerados al
+  iniciar Expo, sin editar los tipos generados ni ocultar errores con casts.
+- La nueva ref de ScrollView requiere `ScrollViewInstance` en RN 0.88; corregida.
+- Lint detectó mutación de un ref devuelto por un hook: acceso al scroll encapsulado
+  en callbacks del proveedor, sin desactivar reglas.
+- Primer lint sin la configuración de caché intentó usar el directorio personal
+  de solo lectura: repetido con las variables documentadas en README.
+- Retorno de scroll fallaba porque una pantalla oculta emitía posición cero:
+  registro limitado a pantalla enfocada y layout válido, restauración al recuperar
+  tamaño/foco. La regresión pasó después; no se resetean deliberadamente los filtros.
+- Hidratación/foco: espera al efecto accesible antes de acciones críticas y evita
+  robar foco de un control ya activado. El foco programático del título no dibuja
+  un marco decorativo; los controles mantienen su foco de teclado.
+- Favicon inexistente generaba un 404 de consola: añadido SVG original embebido,
+  sin filtrar errores ni silenciar LogBox.
+- La primera ampliación no incluía encabezados HTML. Se reforzó para incluirlos,
+  verificar el tamaño duplicado y recorrer los cuatro anchos. Detectó 3 px de
+  desbordamiento vertical del título: aumentado interlineado, sin reducir la letra.
+- Una ronda de pruebas de desarrollo coincidió con otra de exportación y colisionó
+  en sus artefactos de trazas. No se acredita como superada. Ahora cada modalidad
+  tiene su `outputDir`; la verificación final se realiza secuencialmente. No iniciar
+  E2E antes de terminar la exportación ni compartir Metro durante exportaciones.
+
+### Contraste de esta revisión
+
+Recalculado mediante luminancia relativa sRGB, sobre fondos sólidos (el texto ya
+no depende de la imagen):
+
+| Combinación | Relación |
+|---|---|
+| Azul profundo / crema | 12.92:1 |
+| Texto secundario / crema | 5.20:1 |
+| Terracota / crema | 5.58:1 |
+| Texto claro / botón terracota | 6.04:1 |
+| Azul profundo / arena | 10.63:1 |
+
+No es una auditoría completa WCAG. No se han probado lectores de pantalla,
+font scaling nativo, safe areas con notch o comportamiento real de iPhone/Android.
+La ampliación CSS en Chromium no equivale a esas pruebas ni al zoom completo del
+navegador. APK, paseo real, aprobación turística/derechos y audio siguen pendientes.
+Expo Doctor online no se ha repetido: mantiene su autorización pendiente.
+GitHub Actions remoto tampoco se ha ejecutado/verificado en este incremento.

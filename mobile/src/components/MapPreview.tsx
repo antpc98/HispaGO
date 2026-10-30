@@ -32,9 +32,7 @@ export function MapPreview() {
       <View style={styles.label}>
         <Icon name="map" size={27} color={colors.terracotta} />
         <Text style={styles.title}>Mapa en preparación</Text>
-        <Text style={styles.copy}>
-          Sin ubicación ni trazado de la ruta.{`\n`}Disponible en la entrega 4.
-        </Text>
+        <Text style={styles.copy}>Sin ubicación ni trazado de la ruta.</Text>
       </View>
     </View>
   );

@@ -1,16 +1,16 @@
 # HispaGo · Plan de entregas de la V1
 
-Fecha: 21 de octubre de 2026.
+Creado: 21 de octubre de 2026. Revisado: 30 de octubre de 2026.
 
 Estado: plan de referencia. El avance y las comprobaciones reales se registran en [STATE.md](STATE.md) y [el informe de QA](qa/test-results.md); este documento por sí solo no acredita funcionalidades ni pruebas ejecutadas.
 
-Fuente funcional: `HispaGo_Guia_Desarrollo_V1.md`, versión 1.0, facilitada por Antonio. Este plan organiza su ejecución; las decisiones funcionales siguen esa guía. Los ejemplos de comandos y prompts de la guía se aplicarán al hito correspondiente, después de comprobar las versiones y el entorno reales.
+Fuente técnica de origen: `HispaGo_Guia_Desarrollo_V1.md`, versión 1.0, facilitada por Antonio. Se conserva íntegra como documento histórico, no como instrucciones activas de una sesión. Este es el único roadmap vigente. La decisión de producto del 30 de octubre, solicitada por Ana y trasladada por Antonio, sustituye su prioridad editorial anterior; véase [ADR 0002](decisions/0002-plaza-pilot.md). Los hitos técnicos compatibles siguen vigentes; las fases internas de la guía no equivalen automáticamente a estas entregas.
 
 ## 1. Objetivo y alcance
 
 Entregar un piloto Android instalable que permita descubrir una ruta cultural por Sevilla, recorrer sus paradas, leer o escuchar relatos, resolver dinámicas y recuperar el progreso después de cerrar la app.
 
-La primera experiencia editorial será **Las bodas de Fígaro — Amor, secretos y poder en la Sevilla de Mozart**, con título, localizaciones y contenido pendientes de aprobación editorial.
+La primera experiencia piloto es **Plaza de España · Una historia para mirar despacio**. El título completo está decidido y se conserva en un único campo; código/slug estable: `plaza-de-espana`. Ana sigue validando contenido, paradas, localizaciones y recorrido. Fígaro pasa al backlog como siguiente experiencia, sin borrar su ficción ni reutilizar sus identificadores.
 
 El piloto incluirá:
 
@@ -45,7 +45,7 @@ Las entregas no equivalen necesariamente a un único PR. Los cambios grandes se 
 
 ### Entrega 1 · Base técnica y dirección visual
 
-**Objetivo:** disponer de una base reproducible y de una identidad visual inicial sobre la que construir el producto.
+**Objetivo:** disponer de una base reproducible y pulir la experiencia local de Plaza de España, sin anticipar funciones de las entregas siguientes.
 
 Entregables:
 
@@ -54,6 +54,9 @@ Entregables:
 - Configuración de desarrollo, archivos `.env.example` sin secretos y servicios locales documentados.
 - Endpoint de salud con comprobación de base de datos y Admin inicial con identidad HispaGo.
 - App inicial con navegación y pantallas representativas de Explorar, detalle y parada.
+- Inicio con propuesta y CTA temprano; catálogo local; detalle y estado del material de la primera parada de Plaza de España. Si no se puede revisar la fuente de Ana, no se ofrece un relato sustitutivo.
+- Título completo accesible; portada específica, avisos de prototipo concentrados y navegación Inicio/Rutas. Detalles y paradas pertenecen a Rutas.
+- Fígaro conservado como borrador independiente, excluido de la experiencia protagonista.
 - Tokens de diseño y componentes iniciales: botones, tarjetas, tipografía y estados de interfaz.
 - Verificaciones automáticas iniciales para backend y móvil.
 - README de arranque, versiones exactas, decisiones iniciales y `docs/STATE.md`.
@@ -66,6 +69,7 @@ Criterios de aceptación:
 - Pruebas significativas de la base implementada ejecutadas y sus resultados registrados.
 - Pantallas iniciales identificadas como demostración visual, sin presentarlas como integración funcional con el catálogo.
 - Comprobaciones pendientes en el equipo de otra persona o Android real indicadas expresamente.
+- Anchos 320/390/430/768 px, texto ampliado en navegador, búsqueda, limpieza, filtros, retorno, enlaces directos y recarga documentados con resultados reales.
 
 **Requisitos previos de Antonio:** ninguno que bloquee el inicio. Se adopta HispaGo como nombre de trabajo, español como idioma inicial y la dirección visual descrita en este plan.
 
@@ -77,6 +81,7 @@ Un logotipo, referencias visuales o preferencias de marca existentes son aportac
 
 Entregables:
 
+- Recibir y revisar el material de la primera parada de Ana: original privado, procedencia, transcripción fiel con tiempos/dudas, adaptación separada y afirmaciones pendientes de fuentes. [Registro de la fuente](content/plaza-de-espana-editorial.md).
 - Modelos, restricciones y migraciones de rutas, versiones, lugares, paradas, relatos, audios, dinámicas y taxonomías.
 - Admin con búsqueda, filtros, secciones, orden de paradas, formularios por tipo de misión y preescucha de audio.
 - Permisos editoriales, validación de publicación y registro de quién publica y cuándo.
@@ -92,12 +97,13 @@ Criterios de aceptación:
 - Ocultar borradores en catálogo, detalle y acceso directo a versiones.
 - Comprobar que una publicación previa no cambia al editar el borrador.
 - Verificar permisos, conflictos de edición, filtros y orden de coordenadas GeoJSON.
+- Revisar con Ana la primera parada de Plaza de España antes de presentarla como contenido turístico aprobado. Recibir un audio no equivale a verificar sus afirmaciones ni autoriza clonar su voz.
 
 La facilidad de uso del editor se verificará técnicamente y después con una prueba de Cristina o Ana; son evidencias diferentes.
 
 ### Entrega 3 · Primera parada completa
 
-**Objetivo:** validar pronto una experiencia real de extremo a extremo.
+**Objetivo:** completar la primera parada de Plaza de España de extremo a extremo con material revisado de Ana, antes de ampliar el recorrido.
 
 Entregables:
 
@@ -106,6 +112,7 @@ Entregables:
 - Reproductor único con transcripción, controles y recuperación del punto de escucha.
 - Persistencia local versionada y XP concedido una sola vez por misión.
 - Contenido sintético aislado para desarrollo, con identificación visible de demo.
+- Audio solo cuando el archivo, sus derechos, transcripción y revisión estén resueltos. Interacción acordada con Ana; no importar la pregunta ficticia del patio.
 
 Criterios de aceptación:
 
@@ -119,7 +126,7 @@ Esta entrega es el punto de revisión de experiencia antes de extender el patró
 
 ### Entrega 4 · Experiencia completa
 
-**Objetivo:** completar el recorrido funcional con los tres tipos de dinámica y sus casos de fallo.
+**Objetivo:** ampliar al recorrido de Plaza de España que Ana defina y revisar sus localizaciones y datos prácticos. No se fija un número de paradas ni se inventa geometría para completar la interfaz.
 
 Entregables:
 
@@ -142,9 +149,9 @@ Criterios de aceptación:
 
 La prueba del mapa en APK requiere la configuración real de Google Maps y la firma de esa build. La precisión GPS requiere pruebas de campo.
 
-### Entrega 5 · Fígaro e importación editorial
+### Entrega 5 · Revisión editorial y prueba de campo de Plaza de España
 
-**Objetivo:** sustituir la demostración por una experiencia editorial aprobada y permitir incorporar el catálogo.
+**Objetivo:** validar el contenido del piloto y probar la experiencia sobre el terreno; corregirla con el feedback antes de su presentación.
 
 Entregables:
 
@@ -152,8 +159,9 @@ Entregables:
 - Normalización revisable y conservación de los valores originales del Excel.
 - Importación en borrador que mantenga separadas las dos rutas FLAMENCO.
 - Protección frente a duplicados y sobrescritura silenciosa de contenido enriquecido.
-- Carga de Fígaro con localizaciones, textos, dinámicas, imágenes, audios y créditos aprobados.
+- Carga de Plaza de España con el recorrido que Ana apruebe, textos, dinámicas, imágenes, audios y créditos revisados. Revisión de transcripción y escucha separadas de la validación histórica.
 - Plantillas de contenido, inventario de derechos y checklist de publicación.
+- Paseo real en Plaza de España con dispositivo y build identificados; incidencias de localización, lectura, audio, ritmo narrativo y acceso. Corrección y repetición de los casos afectados.
 
 Criterios de aceptación:
 
@@ -161,15 +169,15 @@ Criterios de aceptación:
 - Reimportar el mismo origen sin duplicar rutas.
 - No interpretar FINALIZADO editorial como publicado.
 - Confirmar la incorporación de una nueva parada desde Admin y su aparición en la app al publicar, sin recompilar.
-- Obtener aprobación editorial y completar el checklist antes de presentar Fígaro como ruta definitiva.
+- Obtener aprobación editorial y completar el checklist antes de presentar Plaza de España como ruta definitiva. El importador se mantiene como hito técnico válido, pero el Excel no debe bloquear una primera parada cargada desde Admin.
 
 Dependencias externas: Excel original, guiones, localizaciones y tiempos comprobados, imágenes y grabaciones con derechos, voz aprobada y revisión de Ana.
 
-La preparación de estos materiales debe comenzar durante las primeras entregas.
+La preparación de estos materiales debe comenzar durante las primeras entregas. Las pruebas de campo necesitan una build utilizable: la preparación técnica de la entrega 6 puede avanzar antes, sin declarar cerrado el piloto.
 
 ### Entrega 6 · Piloto instalable
 
-**Objetivo:** entregar un APK autónomo conectado a servicios persistentes y documentar su validación real.
+**Objetivo:** preparar la V1 piloto de Plaza de España para presentación: APK autónomo conectado a servicios persistentes y validación real documentada.
 
 Entregables:
 
@@ -191,6 +199,24 @@ Criterios de aceptación:
 
 Dependencias externas: acceso autorizado a hosting, almacenamiento, Expo/EAS y Google Maps; dispositivo Android; aprobación editorial y paseo real. Los costes y la contratación se decidirán cuando corresponda. Las credenciales se facilitarán por los mecanismos seguros de cada plataforma, nunca en documentación o chat.
 
+### Después del piloto · Fígaro como siguiente experiencia
+
+Reutilizar el sistema de contenido, pantallas, publicación y reproducción. Conservar `demo-figaro`, `figaro-demo` y `demo-patio` para los borradores sintéticos actuales; cualquier identidad editorial definitiva se decidirá sin convertirlos en Plaza de España. Revisar con Ana guiones, localizaciones, derechos y recursos específicos. No hay fecha comprometida ni hito de Fígaro declarado terminado.
+
+### Dependencias y orden funcional
+
+| Orden | Hito / entrega | Trabajo técnico que puede avanzar | Dependencia externa y evidencia de cierre |
+|---|---|---|---|
+| 1 | Pulir Entrega 1 | Configuración, diseño, navegación, pruebas y documentación | Revisión visual; Android real sigue separado de web |
+| 2 | Primera fuente de Ana / 2 | Editor, modelo, validación y API | AAC accesible, permiso de uso, transcripción revisable, fuentes y aprobación de Ana |
+| 3 | Primera parada completa / 3 | Audio, interacción y recuperación de estado | Guion/audio/interacción revisados; pruebas de interrupción en dispositivo |
+| 4 | Ampliación / 4 | Pantallas, mapas y fallos sobre datos de prueba aislados | Ana define paradas; localizaciones, geometría y datos prácticos contrastados |
+| 5 | Prueba en Plaza de España / 5 | Build de ensayo y correcciones (preparación de 6 en paralelo) | Paseo real, dispositivo/build y feedback registrados; repetición tras corregir |
+| 6 | Presentación / 6 | Servicios persistentes, APK, guion y QA | Accesos seguros, derechos, aprobación editorial y dispositivo; sin fechas inventadas |
+| 7 | Siguiente experiencia | Reutilizar el sistema para Fígaro | Material y validación específicos, nunca una sustitución de datos del piloto |
+
+Esta tabla ordena las entregas existentes, no crea otro roadmap ni acredita avance. Consultar STATE y QA para conocer lo realmente ejecutado.
+
 ## 4. Dirección visual
 
 Inspiración: Sevilla antigua y cercana, a través de patios, cal, albero, azulejería, cerámica y rejería. La identidad debe mantener claridad y comodidad de uso en el móvil.
@@ -207,7 +233,7 @@ Propuesta inicial, pendiente de validación visual:
 
 Se documentarán colores, tipografías, espaciado, componentes y estados en `docs/design/`. El contraste se comprobará y los estados no dependerán solo del color. Los controles tendrán un área táctil de al menos 44–48 puntos.
 
-Explorar, detalle y parada serán las primeras pantallas de referencia. El relato y el audio tendrán prioridad durante la narración; la orientación tendrá prioridad durante el recorrido.
+Inicio, catálogo, detalle y estado de la primera parada son las pantallas actuales de referencia. La clasificación temática de Plaza de España aún no está aprobada: no se hereda Ópera. No se muestran colecciones vacías como rutas. Al incorporar narración y orientación reales, el relato/audio y el recorrido tendrán sus prioridades de uso respectivas.
 
 ## 5. Organización prevista del repositorio
 
@@ -291,7 +317,7 @@ Si ya existen logotipo, tipografías, imágenes propias o referencias visuales, 
 
 El Excel, contenido aprobado, voz y cuentas externas se pedirán al llegar al paso que los necesite. No se requieren para preparar la base técnica y visual.
 
-## 9. Estado inicial y siguiente paso
+## 9. Registro histórico del plan inicial (sustituido como estado activo)
 
 - Repositorio inspeccionado: `/workspace/HispaGO`.
 - Rama local: `main`, sin commits en el momento de redactar el plan.
@@ -299,4 +325,4 @@ El Excel, contenido aprobado, voz y cuentas externas se pedirán al llegar al pa
 - Este documento define el trabajo; no inicia automáticamente la entrega 1.
 - Siguiente paso propuesto: implementar la entrega 1 y avanzar después hacia la primera parada completa de la entrega 3, previa base editorial y API de la entrega 2.
 
-El calendario se ajustará con evidencia tras esa primera integración. La guía propone una estimación orientativa de 90–150 horas conjuntas para el piloto cuidado; no se adopta como garantía de duración ni como fecha de entrega.
+Las líneas anteriores describen el repositorio vacío del 21 de octubre; no son instrucciones de arranque ni estado actual. Consultar STATE. No se fijan fechas ni estimaciones comprometidas. El siguiente paso vigente es recibir/revisar la fuente de Ana y preparar la base editorial de entrega 2, antes de la parada vertical de entrega 3.

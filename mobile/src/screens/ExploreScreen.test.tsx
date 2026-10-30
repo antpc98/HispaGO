@@ -1,25 +1,35 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
+import { PreviewSessionProvider } from '../demo/PreviewSession';
 import { ExploreScreen } from './ExploreScreen';
 
-describe('Explore visual demo', () => {
-  it('filters the catalog and recovers from the empty state', async () => {
-    await render(<ExploreScreen />);
-    expect(screen.getByText('Las bodas de Fígaro')).toBeTruthy();
-    await fireEvent.press(screen.getByRole('button', { name: 'Historia' }));
-    expect(screen.queryByText('Las bodas de Fígaro')).toBeNull();
-    expect(screen.getByText('Aún no hay historias aquí')).toBeTruthy();
-    await fireEvent.press(screen.getByRole('button', { name: 'Restablecer filtros' }));
-    expect(screen.getByText('Las bodas de Fígaro')).toBeTruthy();
-  });
-
-  it('handles search text and clearly identifies the demo', async () => {
-    await render(<ExploreScreen />);
-    await fireEvent.changeText(
-      screen.getByLabelText('Buscar experiencias de demostración'),
-      'sin resultados',
+describe('Catalog preview', () => {
+  it('searches locally and recovers an honest empty state', async () => {
+    await render(
+      <PreviewSessionProvider>
+        <ExploreScreen />
+      </PreviewSessionProvider>,
     );
-    expect(screen.getByText('Aún no hay historias aquí')).toBeTruthy();
-    expect(screen.getByText('DEMO VISUAL · ENTREGA 1')).toBeTruthy();
+    expect(
+      screen.getByRole('button', { name: /Explorar Plaza de España · Una historia/ }),
+    ).toBeTruthy();
+    await fireEvent.changeText(screen.getByLabelText('Buscar rutas'), 'sin resultados');
+    expect(screen.getByText('No hay experiencias con estos filtros')).toBeTruthy();
+    await fireEvent.press(screen.getByRole('button', { name: 'Restablecer filtros' }));
+    expect(
+      screen.getByRole('button', { name: /Explorar Plaza de España · Una historia/ }),
+    ).toBeTruthy();
+  });
+  it('filters by actual availability instead of inheriting opera categories', async () => {
+    await render(
+      <PreviewSessionProvider>
+        <ExploreScreen />
+      </PreviewSessionProvider>,
+    );
+    await fireEvent.press(screen.getByRole('button', { name: 'Con narración disponible' }));
+    expect(screen.getByText('No hay experiencias con estos filtros')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Ópera' })).toBeNull();
+    await fireEvent.press(screen.getByRole('button', { name: 'Restablecer filtros' }));
+    expect(screen.getByText('Plaza de España')).toBeTruthy();
   });
 });

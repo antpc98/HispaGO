@@ -17,7 +17,12 @@
 - Backend: separa reglas de negocio/publicación, API y formularios editoriales.
 - Móvil: separa componentes, pantallas, cliente API, progreso y reproductor.
 - No inventes datos turísticos, coordenadas, derechos ni credenciales.
-- La demo de `mobile/src/demo/` es sintética y no se importa como contenido editorial.
+- La prioridad y el alcance vigentes están en `docs/PLAN_ENTREGAS_V1.md` y
+  `docs/decisions/0002-plaza-pilot.md`; sustituyen la prioridad de la guía histórica.
+- `mobile/src/demo/catalog.ts` configura presentaciones locales, no publicaciones.
+  Plaza de España tiene identidad propia; su material pendiente no es ficción.
+  La ficción de Fígaro se conserva aislada y nunca se importa como contenido editorial.
+- Originales de audio privados fuera de Git; no inventar transcripciones ni clonar voces.
 - Las rutas publicadas serán instantáneas; los archivos publicados no se sobrescriben.
 - La futura API de visitantes solo expondrá lectura de contenido publicado.
 - Secretos fuera de Git y del bundle móvil. No registres valores de `.env`.

@@ -1,15 +1,22 @@
 # HispaGo
 
-Experiencias culturales por Sevilla. Base de la **entrega 1**: Django/PostgreSQL y
-una demo visual Android/web con Inicio, Rutas, detalle y parada. La revisión visual
-adopta las referencias aportadas: portadas ilustradas, marfil, azul oscuro,
-terracota y navegación inferior.
+Experiencias culturales por Sevilla. Primera experiencia piloto:
+**Plaza de España · Una historia para mirar despacio**, solicitada por Ana.
+Título completo decidido; contenido, paradas y recorrido pendientes de su revisión.
+Fígaro se conserva como siguiente experiencia en backlog, con identidad propia.
 
-La demo contiene ficción identificada y datos locales de presentación. Todavía no
-consulta un catálogo, reproduce audio, solicita GPS ni guarda progreso. La
+La **Entrega 1** incluye base Django/PostgreSQL y un prototipo local Expo Android/web:
+Inicio con acción principal, Rutas con búsqueda/disponibilidad, detalle y estado del
+material de la primera parada. No hay mapa, audio, GPS ni progreso. No consulta una
+API de catálogo. La ficción del patio pertenece solo al borrador de Fígaro.
+El AAC de Ana mencionado en el encargo no está accesible en esta sesión: no se ha
+escuchado ni transcrito. Ver [registro editorial](docs/content/plaza-de-espana-editorial.md).
+La
 [guía fuente](docs/content/HispaGo_Guia_Desarrollo_V1.md), el
 [plan de entregas](docs/PLAN_ENTREGAS_V1.md) y el [estado actual](docs/STATE.md)
-describen el alcance y lo pendiente.
+describen el alcance y lo pendiente. La guía se conserva como fuente histórica;
+su antigua prioridad Fígaro está sustituida por [ADR 0002](docs/decisions/0002-plaza-pilot.md)
+y el plan vigente. [Cambios](docs/CHANGELOG.md).
 
 ## Requisitos
 
@@ -20,12 +27,18 @@ describen el alcance y lo pendiente.
   base. Si no hay compatibilidad, hará falta una development build en una entrega
   posterior. La comprobación web no sustituye una prueba Android.
 
-Clonar y situarse en la raíz:
+Clonar la base remota conocida y situarse en la raíz (el incremento de revisión
+se aplica aparte hasta su integración):
 
 ```sh
-git clone https://github.com/antpc98/HispaGO.git
+git clone --branch feat/delivery-1-foundation https://github.com/antpc98/HispaGO.git
 cd HispaGO
 ```
+
+Comprueba `git status --short --branch` antes de trabajar: `main` puede no contener
+la entrega en revisión. La referencia de partida es `feat/delivery-1-foundation`;
+este incremento está preparado en `feat/delivery-1-plaza-de-espana` para revisión,
+sin implicar que se haya subido o integrado en remoto.
 
 ## Configuración local
 
@@ -110,6 +123,31 @@ directamente la demo web de desarrollo:
 ```sh
 npm run web
 ```
+
+En Windows usa `npm.cmd` para no depender de la política de scripts de PowerShell.
+Desde la demo ya clonada por Antonio (no desde `C:\Windows\System32`):
+
+```powershell
+Set-Location "C:\Users\AntonioPrieto\HispaGO-demo\mobile"
+git status --short --branch
+node --version
+$env:NODE_USE_SYSTEM_CA = "1"
+npm.cmd ci
+npm.cmd run web -- --clear
+```
+
+Node debe ser 24.19.0. `NODE_USE_SYSTEM_CA` permite utilizar certificados de
+confianza del sistema; no desactives TLS ni ejecutes `audit fix --force`.
+Si ya están instaladas las dependencias de la referencia, esta revisión no añade
+paquetes y no requiere repetir `ci`. Abre la URL que indique Expo y detén con
+Ctrl+C. No hagas `git pull` con cambios locales sin revisar su estado.
+
+Navegación: `/` → `/routes/plaza-de-espana` →
+`/stops/plaza-de-espana-primera-parada`; el catálogo está en `/routes`. Inicio y
+Rutas son las dos secciones; detalle/parada pertenecen a Rutas. Filtros en URL y
+contexto/scroll en memoria durante la sesión, no progreso recuperable. La cabecera
+“Prototipo” explica límites. La primera parada solo informa del estado de la fuente;
+no se ofrece una narración ficticia en lugar del material ausente.
 
 La demo actual no necesita backend. En entregas posteriores,
 `EXPO_PUBLIC_API_URL` contendrá la URL pública de la API, nunca secretos. En un

@@ -9,6 +9,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '../design/tokens';
+import { PreviewSessionProvider } from '../demo/PreviewSession';
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -31,7 +32,7 @@ export default function RootLayout() {
       </View>
     );
   return (
-    <>
+    <PreviewSessionProvider>
       <StatusBar style="dark" />
       <Stack
         screenOptions={{
@@ -40,7 +41,7 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: colors.paper },
         }}
       />
-    </>
+    </PreviewSessionProvider>
   );
 }
 

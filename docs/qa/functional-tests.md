@@ -23,17 +23,23 @@ Para E2E, exportación web actual y navegador Chromium instalado.
 | BE-06 | Django | Enviar login sin CSRF con comprobación activa | 403 |
 | BE-07 | Django | Usuario no staff accede al índice | Acceso denegado mediante redirección |
 | BE-08 | Django | Usuario staff autenticado abre índice | 200 y cabecera editorial |
-| UI-01 | Jest | Buscar Fígaro sin acento, mayúsculas y espacios | Coincidencia normalizada |
-| UI-02 | Jest | Combinar texto con categoría distinta | Estado vacío |
-| UI-03 | Jest | Categoría Todas sin búsqueda | Una propuesta demo |
-| UI-04 | Jest | Seleccionar Historia y restablecer filtros | Estado vacío y recuperación de Fígaro |
-| UI-05 | Jest | Escribir búsqueda inexistente | Estado vacío y aviso de demostración visible |
-| UI-06 | Jest | Abrir parada y desplegar/ocultar ejemplo | Audio deshabilitado; ejemplo visible y después oculto |
-| WEB-01 | Playwright | Inicio → Rutas → detalle → parada → ejemplo → volver | URLs correctas, controles responden, sin excepciones JS |
-| WEB-02 | Playwright | Filtrar, restablecer y buscar FIGARO | Estado vacío y recuperación |
-| WEB-03 | Playwright | Enlaces directos a cuatro pantallas a 320/412/1280 px | Contenido visible sin desbordamiento horizontal |
-| WEB-04 | Playwright, exportación y desarrollo | Abrir cuatro pantallas y observar imágenes, SVG y consola React | Portadas cargadas y ajustadas al contenedor; sin atributo DOM `accessible`; decoración oculta con ARIA y fuera de tabulación; ilustración conserva descripción; sin aviso de atributo no booleano |
-| WEB-05 | Playwright, exportación y desarrollo | Abrir Arte y cultura / Historia desde Inicio y navegar con la barra inferior | Categoría correcta y estado vacío honesto; selección accesible; detalle indica mapa pendiente y no ofrece inicio de ruta real |
+| UI-01 | Jest | Comprobar título completo y código/slug | Un único título elegido, identidad estable y Plaza protagonista |
+| UI-02 | Jest | Buscar PLAZA DE ESPANA y mirar despacio | Coincidencia normalizada |
+| UI-03 | Jest | Filtrar narración disponible | Vacío: referencia editorial no equivale a audio reproducible |
+| UI-04 | Jest | Búsqueda inexistente y limpieza | Vacío y recuperación de Plaza |
+| UI-05 | Jest | Filtros inválidos y búsqueda de Fígaro | Normalización; backlog no aparece como piloto |
+| UI-06 | Jest | Comparar rutas y muestras | Identificadores propios; ficción original conservada; Plaza sin texto inventado ni Ópera |
+| UI-07 | Jest | Abrir primera parada del piloto | Estado de fuente, sin reproductor, ficción ni dinámica inventados |
+| UI-08 | Jest | Abrir muestra de Fígaro | Patio conservado; ejemplo desplegable/ocultable, sin evaluación |
+| WEB-01 | Playwright | Inicio → detalle Plaza → estado de primera parada → volver → Rutas | Título completo, CTA temprano, pertenencia a Rutas, sin mapa/ficción/audio falsos |
+| WEB-02 | Playwright | Buscar, filtrar disponibilidad, limpiar, recargar y volver | URL y contexto coherentes; vacío recuperable; entrada inválida normalizada |
+| WEB-03 | Playwright (4 casos) | Cuatro pantallas a 320/390/430/768 px; acceso directo, último contenido y controles | Sin desbordamiento/truncado; áreas ≥44 px; barra inferior no tapa contenido; CTA Inicio visible |
+| WEB-04 | Playwright, exportación y desarrollo | Seis pantallas, imágenes, SVG y consola React | Portadas correctas, cargadas y ajustadas; sin DOM `accessible`; decoración fuera de foco; sin errores JS/React |
+| WEB-05 | Playwright | Explicación desplegable y barra inferior | Límites accesibles; dos destinos reales; categorías vacías retiradas |
+| WEB-06 | Playwright | Activar CTA con teclado en Inicio/detalle | Foco llega al encabezado de destino, sin scroll forzado |
+| WEB-07 | Playwright | Buscar, desplazar catálogo, abrir detalle y retornar | Conservación deliberada de búsqueda y scroll durante la sesión |
+| WEB-08 | Playwright | Duplicar tamaño/alto de línea de todo el texto, incluidos encabezados, en los cuatro anchos | Texto se adapta; acciones y último contenido accesibles por scroll; sin desbordamiento ni recorte |
+| WEB-09 | Playwright | Abrir borrador Fígaro y patio directamente | Separado del piloto, ficción explícita y navegación conservada |
 | OPS-01 | HTTP + Docker | Detener/arrancar la base conservando volumen | 503 durante fallo y 200 al recuperar |
 | OPS-02 | Herramientas | Check Django, migraciones pendientes, lint, tipos y formato | Sin errores |
 | BUILD-01 | Expo | Exportar Android y web | Bundles generados, sin afirmar APK instalado |
@@ -51,3 +57,11 @@ con caché limpia en el puerto 8084. Detecta avisos que React omite en producci�
 
 No se incluyen todavía tests de publicación, catálogo real, progreso o XP porque
 esas funciones no existen en la entrega 1. Se añadirán con sus implementaciones.
+
+Los casos UI/WEB anteriores sustituyen la descripción anterior de Fígaro como
+protagonista; el informe conserva sus ejecuciones históricas. WEB-03 genera una
+serie por ancho y WEB-08 una serie de texto ampliado cuando `CAPTURE_DESIGN=1`.
+Texto ampliado por CSS calculado en Chromium no equivale a Dynamic Type o Android
+font scaling, zoom del navegador ni iPhone físico. Safe areas con notch y lectores
+de pantalla requieren dispositivo. Audio inaccesible y revisión editorial se
+registran como bloqueo, no como test de transcripción superado.

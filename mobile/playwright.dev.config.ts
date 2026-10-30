@@ -4,6 +4,7 @@ import config from './playwright.config';
 
 export default defineConfig({
   ...config,
+  outputDir: 'test-results/development',
   fullyParallel: false,
   workers: 1,
   timeout: 60_000,

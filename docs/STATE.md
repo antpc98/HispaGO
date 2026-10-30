@@ -1,83 +1,52 @@
 # Estado de HispaGo
 
-Actualizado: 21 de octubre de 2026. Entrega activa: **1 · Base y dirección visual**.
+Actualizado: 30 de octubre de 2026. Entrega activa: **1 · Base técnica y pulido del piloto**.
+Base inspeccionada: `bd356c9` de `feat/delivery-1-foundation`, limpia y coincidente con el remoto al iniciar. Incremento preparado en `feat/delivery-1-plaza-de-espana`, sin modificar la rama de referencia ni borrar datos.
 
-## Implementado
+## Decisión vigente
 
-- Monorepo organizado, guía fuente preservada e instrucciones para futuras tareas.
-- Django 5.2 LTS, PostgreSQL 17 y configuración local generada sin secretos en Git.
-- Salud con consulta real a base y Admin base con marca, sesión y CSRF.
-- Expo SDK 58, TypeScript y única raíz de navegación `src/app/`.
-- Inicio, Rutas, detalle y parada demo con la revisión visual basada en las
-  referencias de Antonio: portadas ilustradas, categorías y navegación inferior.
-- Dos ilustraciones generadas para la demo, empaquetadas localmente y con
-  procedencia/checksum documentados. No son fotografías ni fuentes históricas.
-- Búsqueda/categorías locales y ejemplo desplegable de dinámica.
-- Dependencias fijadas, CI, tests y documentación de arranque, arquitectura,
-  decisiones, versiones, recursos y QA.
+Primera experiencia: **Plaza de España · Una historia para mirar despacio**, título completo decidido. Código/slug `plaza-de-espana`. Fígaro queda como siguiente experiencia en backlog. La guía original se conserva íntegra, pero su prioridad anterior está sustituida por [ADR 0002](decisions/0002-plaza-pilot.md) y el único [roadmap vigente](PLAN_ENTREGAS_V1.md).
 
-## Verificado
+## Implementado en este incremento
 
-Migraciones y PostgreSQL real, 8 pruebas Django, 4 pruebas de configuración local,
-6 pruebas Jest y 5 E2E web. Health/Admin mediante HTTP y recuperación tras detener
-la base. Tipos, lint, exportación Android y web. Resultados y alcance exacto:
-`docs/qa/test-results.md`.
+- Inicio con título completo accesible, propuesta y CTA antes de la imagen, sin hero de altura fija.
+- Ilustración artística específica de Plaza de España, local y con procedencia; no fotografía, plano ni fuente histórica. Las imágenes anteriores se conservan para el borrador de Fígaro.
+- Catálogo local con búsqueda normalizada, filtro por disponibilidad real de narración, limpieza y estados vacíos. Sin categorías temáticas inventadas ni colecciones sin rutas.
+- Detalle con propuesta, CTA temprano, enfoque, estado de la primera parada e información práctica agrupada. Sin mapa decorativo ni tres indicadores pendientes dominantes.
+- Primera parada como estado editorial reservado: no hay relato disponible ni una escena ficticia en su lugar.
+- Dos destinos inferiores, Inicio y Rutas. Detalle/parada pertenecen a Rutas; retornos con destino padre para acceso directo. URL para filtros y sesión en memoria para contexto/scroll; no es progreso turístico.
+- Una identificación breve de prototipo con explicación desplegable; sin mensajes internos de números de entrega en la interfaz.
+- Fígaro y patio conservados con identidades propias, ficción y acceso directo, excluidos del catálogo del piloto.
+- Pruebas y documentación actualizadas. Sin nuevas dependencias, migraciones ni cambios de backend.
 
-Reinstalación desde locks y arranque Metro offline con manifiesto Android HTTP 200
-también comprobados. El entorno cloud requiere caché Expo en una ruta escribible;
-el comando está en README. La descarga del depurador nativo nuevo queda sin
-comprobar y Expo utiliza su fallback.
+## Base técnica conservada
 
-Corrección posterior: los iconos y la ilustración usan atributos ARIA en web y
-conservan `accessible={false}` en nativo. La prueba de regresión recorre las tres
-pantallas y comprueba la consola React en desarrollo. Cuatro E2E adicionales
-ejecutados sobre Metro con caché limpia; sin el aviso de atributo no booleano.
-CI incluye ahora ese runner de desarrollo, además de la exportación web.
+Django 5.2 LTS, PostgreSQL 17, health con consulta real, Admin base con marca/sesión/CSRF. Expo SDK 58, TypeScript, raíz única `src/app/`, tokens editoriales crema/terracota/azul, fuentes locales, locks, CI y configuración sin secretos. No se equiparan estas entregas con las fases internas de la guía antigua.
 
-Revisión visual posterior: los cinco casos web se han ejecutado en exportación y
-en desarrollo, incluyendo colecciones de Inicio, categorías, selección accesible
-y navegación inferior. La nueva ruta `/routes` separa catálogo y bienvenida.
-Las portadas y los SVG conservan su accesibilidad y los marcadores de demo.
-Las capturas están en `docs/design/screenshots/`.
+## Verificación
 
-## Pendiente para cerrar la comprobación completa
+Tipos, lint y formato superados; 9 pruebas Jest, 12 E2E sobre exportación y 12 sobre
+Metro en desarrollo, incluidos los cuatro anchos y encabezados al 200 %. Bundles web
+y Android generados; 32 capturas guardadas. Las ejecuciones y sus evidencias se registran
+en [QA](qa/test-results.md), separadas del histórico de 8 pruebas Django y 4 de scripts.
+Las capturas actuales y su metodología están en [diseño](design/README.md). No inferir
+prueba nativa de una captura de Chromium o un bundle.
 
-- Autorizar Expo Doctor online: la revisión automática bloqueó el envío de
-  metadatos de configuración a servicios externos. Pasó la comprobación local con
-  la tabla del SDK, que no sustituye la remota.
-- Revisar visualmente la propuesta con Antonio/Ana y probar la base en Android
-  compatible y en otro equipo. No se ha generado APK.
-- Revisar los avisos de mantenimiento y dependencias antes de producción.
+## Bloqueo editorial de la primera parada
 
-## Límites actuales
+El usuario menciona `AUDIO-2026-10-30-12-19-47.aac`, pero no hay archivo ni referencia de descarga accesible en esta sesión. No se ha escuchado, transcrito ni extraído tono, enfoque o referencias. El registro [editorial](content/plaza-de-espana-editorial.md) conserva la procedencia declarada, el bloqueo y las preguntas para Ana. No hay transcripción ni hechos atribuidos a su voz inventados. Originales privados fuera de Git.
 
-La app no consume la API, no guarda progreso, no solicita GPS ni reproduce audio.
-Las pantallas y el relato son demostración identificada. No hay ruta real publicada
-ni datos turísticos inventados. El Admin todavía no edita contenidos culturales.
+## Límites y comprobaciones pendientes
 
-El espacio del mapa es decorativo, está rotulado como pendiente y no contiene
-coordenadas, marcadores ni navegación real. Las duraciones y distancias siguen
-por validar. La barra inferior enlaza pantallas existentes: no añade Favoritos,
-Perfil, cuentas ni almacenamiento. La fase activa sigue siendo la entrega 1.
+- Sin catálogo/API de contenido, narración, GPS, mapa, progreso, XP o recorrido turístico publicado. El Admin todavía no edita rutas.
+- No están definidos ni verificados total de paradas, duración, distancia, coordenadas, trazado, condiciones de acceso ni accesibilidad.
+- Categoría de Plaza de España pendiente de revisión; no hereda Ópera.
+- Ana debe revisar material, fuentes, adaptación y localizaciones; la ilustración necesita su valoración editorial.
+- Android/iPhone físicos, TalkBack/VoiceOver, escalado de fuente nativo, interrupciones de audio y prueba de campo: pendientes. No hay APK, hosting, EAS ni presentación final.
+- Expo Doctor online sigue pendiente de autorización: el envío de metadatos fue rechazado anteriormente. La comprobación offline no lo sustituye.
+- Mantenimiento y auditoría de dependencias antes de producción: pendiente. No aplicar `audit fix --force`.
+- GitHub Actions remoto no verificado. La API de GitHub fue inaccesible en la entrega anterior; este incremento no acredita PR ni despliegue.
 
-No hay hosting, EAS, bucket, credenciales de mapas ni publicación comercial.
+## Siguiente paso
 
-La API de GitHub responde Forbidden desde este entorno incluso con escalación.
-No se ha podido crear ni consultar un PR mediante esa API; el acceso Git es una
-capacidad distinta y no demuestra acceso a GitHub Actions o PR.
-
-## Siguiente entrega
-
-Entrega 2: dominio de contenidos, formularios editoriales, permisos, publicación
-inmutable, API y contrato OpenAPI. Mantener separado el material demo de los
-futuros borradores editoriales.
-
-Después, construir la primera parada vertical completa de la entrega 3 antes de
-extenderla a toda la ruta.
-
-## Aportaciones externas posteriores
-
-El Excel original, contenidos y coordenadas verificados, narración aprobada y
-derechos se incorporan al llegar a sus hitos. No han bloqueado la base técnica.
-Las cuentas y credenciales de despliegue se gestionarán de forma segura cuando
-sean necesarias.
+Recibir la fuente de Ana y revisar su transcripción y afirmaciones sin publicarla; avanzar la entrega 2 (editor, publicación inmutable y API). Después, completar la primera parada de extremo a extremo en entrega 3, ampliar al recorrido definido en 4, validar contenido y campo en 5 y preparar la presentación instalable en 6. Fígaro se incorpora después reutilizando el sistema. Sin fechas ni cierres de hitos por haber dibujado pantallas.

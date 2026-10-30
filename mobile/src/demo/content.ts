@@ -1,5 +1,5 @@
 /** Synthetic presentation content. Never import into the editorial database. */
-export const demoRoute = {
+export const figaroDraft = {
   id: 'demo-figaro',
   title: 'Las bodas de Fígaro',
   subtitle: 'Amor, secretos y poder',
@@ -17,31 +17,3 @@ export const demoRoute = {
     note: 'Este pasaje es ficción creada para probar la presentación. No describe un lugar ni un episodio histórico real.',
   },
 } as const;
-
-export type DemoCategory = 'Todas' | 'Ópera' | 'Historia' | 'Arte' | 'Tradiciones' | 'Personajes';
-export const categories: readonly DemoCategory[] = [
-  'Todas',
-  'Ópera',
-  'Historia',
-  'Arte',
-  'Tradiciones',
-  'Personajes',
-];
-
-export function readDemoCategory(value: string | string[] | undefined): DemoCategory {
-  return categories.find((category) => category === value) ?? 'Todas';
-}
-
-export function matchesDemoRoute(search: string, category: DemoCategory): boolean {
-  const normalize = (value: string) =>
-    value
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLocaleLowerCase('es')
-      .trim();
-  const searchable = normalize(`${demoRoute.title} ${demoRoute.subtitle} ${demoRoute.category}`);
-  return (
-    (category === 'Todas' || category === demoRoute.category) &&
-    searchable.includes(normalize(search))
-  );
-}
